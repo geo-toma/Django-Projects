@@ -1,0 +1,16 @@
+/.vscode
+/Include
+/Lib
+/pyvenv.cfg
+/Scripts
+/Django Projects/Agriculture
+/Django Projects/Agriculture_vJAWAD
+/Django Projects/CDK_DB_API
+/Django Projects/Chat
+/Django Projects/chirpstackIntg
+/Django Projects/ESPleveling
+# /Django Projects/iHealth
+/Django Projects/LoRa_WEB_Interface
+/Django Projects/ws_irr
+**/__pycache__
+**/__pycache__/*
