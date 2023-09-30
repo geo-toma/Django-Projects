@@ -1,15 +1,26 @@
 from django.db import models
 
 class Patient(models.Model):
-    names = models.CharField(max_length=200, null=False, default="Unknown Patient")
+    name = models.CharField(max_length=200, null=False, unique=True)
     age = models.IntegerField(null=False, default=0)
     height = models.IntegerField(null=False, default=0)
-    sex = models.BooleanField(null=False, default=True)
+    gender = models.BooleanField(null=False, default=True)
     
     def __str__(self) -> str:
-        return self.names
+        return self.name
+    
+class Devices(models.Model):
+    DEVICE_CHOICES = (
+        ('HS2S', 'Balance impédancemètre'),
+        ('BP5S', 'Tensiomètre'),
+        ('BG5S', 'Glucomètre'),
+        ('PO3M', 'Oximètre de Pouls'),
+    )
+    name = models.CharField(primary_key=True, max_length=4, choices=DEVICE_CHOICES)
+    mac = models.CharField(max_length=16)
+    
 
-class Data_hs5s(models.Model):
+class Data_hs2s(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     weight = models.FloatField()
     IMC = models.FloatField()
@@ -21,14 +32,16 @@ class Data_hs5s(models.Model):
     visceral_fat_grade = models.FloatField()
     basal_metabolism = models.FloatField()
     physical_age = models.IntegerField()
+    measure_date = models.DateTimeField(auto_now=True, null=False)
     
     def __str__(self) -> str:
-        return self.patient.names
+        return self.patient.name
     
 class Data_bp5s(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
     sys = models.FloatField()
     dia = models.FloatField()
+    measure_date = models.DateTimeField(auto_now=True, null=False)
     
     def __str__(self) -> str:
-        return self.patient.names
+        return self.patient.name
